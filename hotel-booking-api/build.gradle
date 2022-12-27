@@ -1,0 +1,39 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.syrnik'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+ext {
+	springBootVersion = '3.0.0'
+	lombokVersion = '1.18.24'
+	postgresqlVersion = '42.5.1'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
