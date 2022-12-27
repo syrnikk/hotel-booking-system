@@ -4,3 +4,7 @@ spring.datasource:
   url: jdbc:postgresql://localhost:5432/hotel_db
   username: hotel_user
   password: hoteluserpassword
+
+rsa:
+  public-key: classpath:certs/public.pem
+  private-key: classpath:certs/private.pem
