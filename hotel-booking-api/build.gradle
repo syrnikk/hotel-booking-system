@@ -19,6 +19,7 @@ ext {
 	springBootVersion = '3.0.0'
 	lombokVersion = '1.18.24'
 	postgresqlVersion = '42.5.1'
+	hikariCPVersion = '5.0.1'
 }
 
 repositories {
@@ -29,6 +30,7 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server:${springBootVersion}"
+	implementation "com.zaxxer:HikariCP:${hikariCPVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
