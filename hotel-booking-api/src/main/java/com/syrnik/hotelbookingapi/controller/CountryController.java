@@ -1,6 +1,7 @@
 package com.syrnik.hotelbookingapi.controller;
 
-import com.syrnik.hotelbookingapi.dao.RoleDao;
+import com.syrnik.hotelbookingapi.dao.CountryDao;
+import com.syrnik.hotelbookingapi.model.Country;
 import com.syrnik.hotelbookingapi.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,42 +13,43 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class RoleController {
-    private final RoleDao roleService;
+public class CountryController {
+    private final CountryDao countryDao;
 
-    @GetMapping("/role")
-    public ResponseEntity<List<Role>> getRoles() {
+    @GetMapping("/country")
+    public ResponseEntity<List<Country>> getRoles() {
         try {
-            List<Role> roles = roleService.find();
-            if(roles.isEmpty()) {
+            List<Country> countries = countryDao.find();
+            if(countries.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
-            return ResponseEntity.ok(roles);
+            return ResponseEntity.ok(countries);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @PostMapping("/role")
-    public ResponseEntity<String> addRole(@RequestBody Role role) {
+    @PostMapping("/country")
+    public ResponseEntity<String> addRole(@RequestBody Country country) {
         try {
-            roleService.save(role);
-            return ResponseEntity.ok("Role added successfully");
+            countryDao.save(country);
+            return ResponseEntity.ok("Country added successfully");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @DeleteMapping("/role/{id}")
+    @DeleteMapping("/country/{id}")
     public ResponseEntity<String> getRoles(@PathVariable Long id) {
         try {
-            roleService.deleteById(id);
-            return ResponseEntity.ok("Role deleted successfully");
+            countryDao.deleteById(id);
+            return ResponseEntity.ok("Country deleted successfully");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
+
