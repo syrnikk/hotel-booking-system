@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FindHotelComponent } from './find-hotel/find-hotel.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FindHotelComponent } from './components/find-hotel/find-hotel.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { FindHotelComponent } from './find-hotel/find-hotel.component';
     FindHotelComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
