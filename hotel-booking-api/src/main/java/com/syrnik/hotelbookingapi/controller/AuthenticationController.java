@@ -1,5 +1,6 @@
 package com.syrnik.hotelbookingapi.controller;
 
+import com.syrnik.hotelbookingapi.dto.JwtResponse;
 import com.syrnik.hotelbookingapi.dto.LoginRequest;
 import com.syrnik.hotelbookingapi.dto.RegisterRequest;
 import com.syrnik.hotelbookingapi.security.TokenService;
@@ -25,7 +26,7 @@ public class AuthenticationController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()
@@ -34,7 +35,7 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenService.generateToken(authentication);
 
-        return ResponseEntity.ok(jwt);
+        return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
     @PostMapping("/register")
