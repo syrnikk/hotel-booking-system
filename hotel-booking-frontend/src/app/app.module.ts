@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HotelDetailsComponent } from './components/hotel-details/hotel-details.component';
 import { RoomBookingComponent } from './components/room-booking/room-booking.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 
 @NgModule({
@@ -30,7 +31,13 @@ import { RoomBookingComponent } from './components/room-booking/room-booking.com
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

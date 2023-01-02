@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { catchError, of } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  showValidationError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,8 +26,18 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value)
-    this.authService.login(this.loginForm.value)
-  }
+    const observer = {
+      next: (res: any) => {
+        localStorage.setItem('access_token', res.token);
+        this.authService.isLoggedInSource.next(true);
+        this.authService.userSource.next(res.userDto)
+        this.router.navigate(['/']);
+      },
+      error: (error: any) => { 
+        this.showValidationError = true;
+      }
+    };
 
+    this.authService.login(this.loginForm.value).subscribe(observer);
+  }
 }

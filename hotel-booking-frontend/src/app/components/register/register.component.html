@@ -22,5 +22,10 @@
             <label for="floatingPassword">Phone</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+        <div class="form-group m-2">
+            <div *ngIf="showValidationError" class="alert alert-danger" role="alert">
+              Registration failed!
+            </div>
+          </div>
     </form>
 </div>

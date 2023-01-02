@@ -1,9 +1,6 @@
 package com.syrnik.hotelbookingapi.controller;
 
-import com.syrnik.hotelbookingapi.dto.JwtResponse;
-import com.syrnik.hotelbookingapi.dto.LoginRequest;
-import com.syrnik.hotelbookingapi.dto.RegisterRequest;
-import com.syrnik.hotelbookingapi.dto.ResponseMessage;
+import com.syrnik.hotelbookingapi.dto.*;
 import com.syrnik.hotelbookingapi.security.TokenService;
 import com.syrnik.hotelbookingapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +39,12 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenService.generateToken(authentication);
 
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        UserDto userDto = new UserDto();
+        if(authentication.getPrincipal() instanceof UserDetails userDetails) {
+            userDto.setEmail(userDetails.getUsername());
+            userDto.setRoles(userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        }
+        return ResponseEntity.ok(new JwtResponse(jwt, userDto));
     }
 
     @PostMapping("/register")

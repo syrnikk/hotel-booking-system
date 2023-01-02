@@ -1,7 +1,17 @@
 INSERT INTO rola(id, nazwa) 
 VALUES 
-(1, 'ROLE_USER'), 
-(2, 'ROLE_ADMIN');
+(1, 'ROLE_ADMIN'), 
+(2, 'ROLE_USER');
+
+INSERT INTO uzytkownik(id, imie, nazwisko, email, haslo, telefon, aktywny) 
+VALUES 
+(1, 'admin', 'admin', 'admin@gmail.com', '$2a$10$yZQwct033FoSATYIAuiI9eFL1ZXqCa6lo7uEhulEG40JlquGsxTcu','938120912', true),
+(2, 'user', 'user', 'user@gmail.com', '$2a$10$yZQwct033FoSATYIAuiI9eFL1ZXqCa6lo7uEhulEG40JlquGsxTcu','938120912', true);
+
+INSERT INTO uzytkownik_rola(uzytkownik_id, rola_id)
+VALUES 
+(1, 1),
+(2, 2);
 
 INSERT INTO kraj(id, nazwa) 
 VALUES
