@@ -1,1 +1,26 @@
-<p>register works!</p>
+<div class="m-2 w-100">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <div class="form-floating m-1">
+            <input type="text" class="form-control" placeholder="Enter name" formControlName="name" required>
+            <label for="floatingInput">Name</label>
+        </div>
+        <div class="form-floating m-1">
+            <input type="text" class="form-control" placeholder="Enter last name" formControlName="lastName" required>
+            <label for="floatingInput">Last name</label>
+        </div>
+        <div class="form-floating m-1">
+            <input type="email" class="form-control" placeholder="Enter email" formControlName="email" required>
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating m-1">
+            <input type="password" class="form-control" placeholder="Password" formControlName="password" required>
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating m-1">
+            <input type="text" class="form-control" placeholder="Phone" formControlName="phone">
+            <label for="floatingPassword">Phone</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+    </form>
+</div>

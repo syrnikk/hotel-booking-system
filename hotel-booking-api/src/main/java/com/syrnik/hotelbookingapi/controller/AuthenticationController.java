@@ -3,6 +3,7 @@ package com.syrnik.hotelbookingapi.controller;
 import com.syrnik.hotelbookingapi.dto.JwtResponse;
 import com.syrnik.hotelbookingapi.dto.LoginRequest;
 import com.syrnik.hotelbookingapi.dto.RegisterRequest;
+import com.syrnik.hotelbookingapi.dto.ResponseMessage;
 import com.syrnik.hotelbookingapi.security.TokenService;
 import com.syrnik.hotelbookingapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,11 +40,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<ResponseMessage> register(@RequestBody RegisterRequest registerRequest) {
         if (userService.existsByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.badRequest().body("Error: email is already taken!");
+            return ResponseEntity.badRequest().body(new ResponseMessage("Error: email is already taken!"));
         }
         userService.save(registerRequest);
-        return ResponseEntity.ok("User registered successfully!");
+        return ResponseEntity.ok(new ResponseMessage("User registered successfully!"));
     }
 }
