@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class Booking {
-    private long id;
+    private Long id;
     private User user;
     private LocalDate arrivalDate;
     private LocalDate departureDate;

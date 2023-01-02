@@ -19,5 +19,5 @@ public class User {
     private String password;
     private String phone;
     private List<Role> roles;
-    private boolean active;
+    private Boolean active;
 }

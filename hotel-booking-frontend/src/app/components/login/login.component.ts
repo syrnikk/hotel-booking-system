@@ -12,13 +12,13 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
-    public fb: FormBuilder,
-    public authService: AuthService,
-    public router: Router
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: [''],
-      password: [''],
+      password: ['']
     });
   }
 

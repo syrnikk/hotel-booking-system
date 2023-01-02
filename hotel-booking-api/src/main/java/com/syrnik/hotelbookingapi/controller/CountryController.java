@@ -17,7 +17,7 @@ public class CountryController {
     private final CountryDao countryDao;
 
     @GetMapping("/country")
-    public ResponseEntity<List<Country>> getRoles() {
+    public ResponseEntity<List<Country>> getCountries() {
         try {
             List<Country> countries = countryDao.find();
             if(countries.isEmpty()) {
@@ -31,7 +31,7 @@ public class CountryController {
     }
 
     @PostMapping("/country")
-    public ResponseEntity<String> addRole(@RequestBody Country country) {
+    public ResponseEntity<String> addCountry(@RequestBody Country country) {
         try {
             countryDao.save(country);
             return ResponseEntity.ok("Country added successfully");
@@ -42,7 +42,7 @@ public class CountryController {
     }
 
     @DeleteMapping("/country/{id}")
-    public ResponseEntity<String> getRoles(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCountry(@PathVariable Long id) {
         try {
             countryDao.deleteById(id);
             return ResponseEntity.ok("Country deleted successfully");

@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Rate {
-    private long id;
-    private long rate;
+    private Long id;
+    private Long rate;
     private User user;
     private Hotel hotel;
 }

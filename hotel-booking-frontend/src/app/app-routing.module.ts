@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './components/home/home.component';
-import { FindHotelComponent } from './components/find-hotel/find-hotel.component';
+import { HotelComponent } from './components/hotel/hotel.component';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'hotel', component: FindHotelComponent }
+  { path: 'hotel', component: HotelComponent }
 ];
 
 @NgModule({
