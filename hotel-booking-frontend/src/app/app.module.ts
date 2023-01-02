@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HotelDetailsComponent } from './components/hotel-details/hotel-details.component';
+import { RoomBookingComponent } from './components/room-booking/room-booking.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HotelDetailsComponent } from './components/hotel-details/hotel-details.
     HotelComponent,
     LoginComponent,
     RegisterComponent,
-    HotelDetailsComponent
+    HotelDetailsComponent,
+    RoomBookingComponent
   ],
   imports: [
     BrowserModule,
