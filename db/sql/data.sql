@@ -42,3 +42,18 @@ VALUES
 (1, 'Pierwszy Hotel', 1, '468642334', 'Tytul pierwszy', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat nibh pretium scelerisque viverra. Nunc cursus malesuada tincidunt. Integer eget tincidunt tortor, a molestie erat. Vivamus sit amet felis ac metus venenatis viverra. Vivamus vitae velit et diam dapibus facilisis sed nec arcu. Fusce placerat consectetur magna in interdum.', 4),
 (2, 'Drugi Hotel', 2, '468642334', 'Tytul drugi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat nibh pretium scelerisque viverra. Nunc cursus malesuada tincidunt. Integer eget tincidunt tortor, a molestie erat. Vivamus sit amet felis ac metus venenatis viverra. Vivamus vitae velit et diam dapibus facilisis sed nec arcu. Fusce placerat consectetur magna in interdum.', 5),
 (3, 'Trzeci Hotel', 3, '468642334', 'Tytul Trzeci', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat nibh pretium scelerisque viverra. Nunc cursus malesuada tincidunt. Integer eget tincidunt tortor, a molestie erat. Vivamus sit amet felis ac metus venenatis viverra. Vivamus vitae velit et diam dapibus facilisis sed nec arcu. Fusce placerat consectetur magna in interdum.', 3);
+
+INSERT INTO typ_pokoju(id, typ, ilosc_osob, cena, opis)
+VALUES
+(1, 'Pokoj dwuosobowy - 2 lozka pojedyncze', 2, 200, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
+(2, 'Pokoj dwuosobowy - 1 lozko podwojne', 2, 200, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
+(3, 'Pokoj jednoosobowy - 1 lozko pojedyncze', 2, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+
+INSERT INTO pokoj(id, typ_pokoju_id, hotel_id, numer_pokoju, pietro)
+VALUES
+(1, 1, 1, 101, 1),
+(2, 2, 1, 102, 1),
+(3, 3, 1, 103, 1),
+(4, 1, 1, 201, 2),
+(5, 2, 1, 202, 2),
+(6, 3, 1, 203, 2);
