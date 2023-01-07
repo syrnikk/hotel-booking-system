@@ -182,10 +182,37 @@ $$
     END IF;                                                                                                   
     RETURN NEW;                                                                                               
     END; 
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER rezerwacja_view_dml_trigger  
     INSTEAD OF INSERT OR UPDATE OR DELETE ON rezerwacja_view
     FOR EACH ROW EXECUTE PROCEDURE rezerwacja_view_dml();
 
 CREATE INDEX pokoj_hotel_id_fkey ON TABLE pokoj(hotel_id);
+
+CREATE OR REPLACE FUNCTION get_dostepne_pokoje(id_hotelu BIGINT, data_przyjazdu DATE, data_odjazdu DATE)
+RETURNS TABLE (LIKE pokoj)
+AS
+$$
+    BEGIN
+    IF data_przyjazdu >= data_odjazdu THEN
+        RAISE EXCEPTION 'Data odjazdu musi byc wieksza niz data przyjazdu';
+    END IF;
+    RETURN QUERY
+    SELECT p.* 
+    FROM pokoj p
+    WHERE p.hotel_id = id_hotelu AND p.id NOT IN 
+    (
+        SELECT p.id
+        FROM pokoj p
+        INNER JOIN pokoj_rezerwacja pr
+        ON p.id = pr.pokoj_id
+        INNER JOIN rezerwacja r
+        ON r.id = pr.rezerwacja_id
+        WHERE p.hotel_id = id_hotelu 
+            AND (r.przyjazd_data <= data_przyjazdu AND r.odjazd_data > data_przyjazdu)
+            OR (r.przyjazd_data < data_odjazdu AND r.odjazd_data >= data_odjazdu)
+            OR (data_przyjazdu <= r.przyjazd_data AND data_odjazdu > r.przyjazd_data)
+    );
+    END
+$$ LANGUAGE plpgsql;
