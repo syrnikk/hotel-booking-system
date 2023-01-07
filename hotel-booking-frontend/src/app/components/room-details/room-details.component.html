@@ -1,0 +1,15 @@
+<div class="card w-100 d-flex flex-row m-2">
+    <div class="card-body">
+      <h5 class="card-title">{{ room.type }}</h5>
+      <p class="card-text">Cena: {{room.price | currency: 'EUR' }}</p>
+      <p class="card-text">{{ room.description }}</p>
+      <label for="source">ILOSC</label>
+      <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+        <select class="form-select" id="roomAmount" name="room-amount-select" style="min-width: 255px;" formControlName="roomAmount">
+            <option value="">-</option>
+            <option *ngFor="let i of rangeList">{{ i + 1 }}</option>
+        </select>
+        <button href="#" class="btn btn-primary mt-2">Zarezerwuj</button>
+      </form>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -20,8 +20,8 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: [''],
-      password: ['']
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 

@@ -21,4 +21,12 @@ export class HotelService {
   getHotelsByCityName(cityName: string) {
     return this.http.get<any>(`/api/hotel?cityName=${cityName}`);
   }
+
+  getAvailableRooms(hotelId: number, startDate: string, endDate: string) {
+    return this.http.get<any>(`/api/room?hotelId=${hotelId}&startDate=${startDate}&endDate=${endDate}`)
+  }
+
+  makeBooking(bookingRequest: any) {
+    return this.http.post<any>("/api/booking", bookingRequest)
+  }
 }

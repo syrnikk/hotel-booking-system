@@ -12,6 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HotelDetailsComponent } from './components/hotel-details/hotel-details.component';
 import { RoomBookingComponent } from './components/room-booking/room-booking.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { RoomDetailsComponent } from './components/room-details/room-details.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     HotelDetailsComponent,
-    RoomBookingComponent
+    RoomBookingComponent,
+    RoomDetailsComponent,
+    ReservationsComponent
   ],
   imports: [
     BrowserModule,
