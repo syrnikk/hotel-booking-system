@@ -2,6 +2,7 @@ package com.syrnik.hotelbookingapi.controller;
 
 import com.syrnik.hotelbookingapi.dto.*;
 import com.syrnik.hotelbookingapi.security.TokenService;
+import com.syrnik.hotelbookingapi.security.UserDetailsImpl;
 import com.syrnik.hotelbookingapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,8 @@ public class AuthenticationController {
         String jwt = tokenService.generateToken(authentication);
 
         UserDto userDto = new UserDto();
-        if(authentication.getPrincipal() instanceof UserDetails userDetails) {
+        if(authentication.getPrincipal() instanceof UserDetailsImpl userDetails) {
+            userDto.setId(userDetails.getId());
             userDto.setEmail(userDetails.getUsername());
             userDto.setRoles(userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         }

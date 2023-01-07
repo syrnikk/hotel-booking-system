@@ -1,10 +1,8 @@
 package com.syrnik.hotelbookingapi.controller;
 
-import com.syrnik.hotelbookingapi.dao.HotelDao;
-import com.syrnik.hotelbookingapi.dto.CityDto;
-import com.syrnik.hotelbookingapi.model.Hotel;
+import com.syrnik.hotelbookingapi.dao.RoomDao;
+import com.syrnik.hotelbookingapi.dto.AvailableRoomDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,17 +16,18 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HotelController {
-    private final HotelDao hotelDao;
+public class RoomController {
+    private final RoomDao roomDao;
 
-    @GetMapping("/hotel")
-    public ResponseEntity<List<Hotel>> getCitiesByCountryName(@RequestParam String cityName) {
+    @GetMapping("/room")
+    public ResponseEntity<List<AvailableRoomDto>> getAvailablesRoom(@RequestParam Long hotelId,
+            @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         try {
-            List<Hotel> hotels = hotelDao.findByCityName(cityName);
-            if(hotels.isEmpty()) {
+            List<AvailableRoomDto> availableRooms = roomDao.findAvailableRoomsGroupByType(hotelId, startDate, endDate);
+            if(availableRooms.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
-            return ResponseEntity.ok(hotels);
+            return ResponseEntity.ok(availableRooms);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
