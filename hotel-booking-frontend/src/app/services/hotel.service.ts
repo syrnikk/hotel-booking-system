@@ -27,6 +27,10 @@ export class HotelService {
   }
 
   makeBooking(bookingRequest: any) {
-    return this.http.post<any>("/api/booking", bookingRequest)
+    return this.http.post<any>("/api/booking", bookingRequest);
+  }
+
+  getReservations() {
+    return this.http.get<any>("/api/booking");
   }
 }

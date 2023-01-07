@@ -14,6 +14,7 @@ import { RoomBookingComponent } from './components/room-booking/room-booking.com
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { RoomDetailsComponent } from './components/room-details/room-details.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ReservationDetailsComponent } from './components/reservation-details/reservation-details.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ReservationsComponent } from './components/reservations/reservations.co
     HotelDetailsComponent,
     RoomBookingComponent,
     RoomDetailsComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    ReservationDetailsComponent
   ],
   imports: [
     BrowserModule,

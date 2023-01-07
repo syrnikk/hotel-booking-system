@@ -1,0 +1,9 @@
+<div class="card w-100 d-flex flex-row m-2">
+    <div class="card-body">
+      <h5 class="card-title">{{ reservation.hotelName }}</h5>
+      <p class="card-text">{{ reservation.roomType }}</p>
+      <p class="card-text">Ilosc pokoji: {{ reservation.roomAmount }}</p>
+      <p class="card-text">Cena za rezerwacje: {{ reservation.price | currency: 'EUR' }}</p>
+      <p class="card-text">Czas pobytu {{ reservation.startDate }} - {{ reservation.endDate }}</p>
+    </div>
+</div>

@@ -173,11 +173,8 @@ $$
                   RAISE EXCEPTION 'Pokoj zajety !!!';
                   RETURN NULL; 
         END IF;                                                                               
-        UPDATE rezerwacja SET uzytkownik_id=NEW.uzytkownik_id, przyjazd_data=NEW.przyjazd_data, odjazd_data=NEW.odjazd_data WHERE id=OLD.id;                   
-        UPDATE pokoj_rezerwacja SET pokoj_id=NEW.pokoj_id WHERE id=OLD.id;
         RETURN NEW;                                                                                             
-    ELSIF TG_OP = 'DELETE' THEN                                                                               
-        DELETE FROM rezerwacja WHERE id=OLD.id;                                                                     
+    ELSIF TG_OP = 'DELETE' THEN                                                                                                                                                 
         RETURN NULL;                                                                                            
     END IF;                                                                                                   
     RETURN NEW;                                                                                               
@@ -216,3 +213,8 @@ $$
     );
     END
 $$ LANGUAGE plpgsql;
+
+SELECT r.id, h.nazwa, tp.typ, SUM(tp.cena) AS cena, r.przyjazd_data, r.odjazd_data FROM rezerwacja r INNER JOIN pokoj_rezerwacja pr
+            ON r.id = pr.rezerwacja_id INNER JOIN pokoj p ON p.id = pr.pokoj_id
+            INNER JOIN typ_pokoju tp ON p.typ_pokoju_id = tp.id INNER JOIN hotel h ON h.id = p.hotel_id
+            WHERE r.uzytkownik_id = 3 GROUP BY r.id, r.przyjazd_data, r.odjazd_data, h.nazwa, tp.typ;
