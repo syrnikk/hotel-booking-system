@@ -1,0 +1,29 @@
+<h1>Kraje</h1>
+<a routerLink="/admin/add-country" class="btn btn-sm btn-success mb-2">Dodaj</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>nazwa</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let country of countries">
+            <td>{{ country.id }}</td>
+            <td>{{ country.name }}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="/admin/edit-country/{{country.id}}" class="btn btn-sm btn-primary mr-1">Edytuj</a>
+                <button (click)="deleteCountry(country.id)" class="btn btn-sm btn-danger" [disabled]="country.isDeleting">
+                    <span *ngIf="country.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!country.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!countries">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

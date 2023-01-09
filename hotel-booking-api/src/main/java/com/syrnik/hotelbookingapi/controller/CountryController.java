@@ -1,6 +1,7 @@
 package com.syrnik.hotelbookingapi.controller;
 
 import com.syrnik.hotelbookingapi.dao.CountryDao;
+import com.syrnik.hotelbookingapi.dto.ResponseMessage;
 import com.syrnik.hotelbookingapi.model.Country;
 import com.syrnik.hotelbookingapi.model.Role;
 import lombok.RequiredArgsConstructor;
@@ -31,21 +32,32 @@ public class CountryController {
     }
 
     @PostMapping("/country")
-    public ResponseEntity<String> addCountry(@RequestBody Country country) {
+    public ResponseEntity<ResponseMessage> addCountry(@RequestBody Country country) {
         try {
             countryDao.save(country);
-            return ResponseEntity.ok("Country added successfully");
+            return ResponseEntity.ok(new ResponseMessage("Country added successfully"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+//    @PostMapping("/country/{id}")
+//    public ResponseEntity<String> addCountry(@RequestBody Country country) {
+//        try {
+//            countryDao.save(country);
+//            return ResponseEntity.ok("Country added successfully");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
     @DeleteMapping("/country/{id}")
-    public ResponseEntity<String> deleteCountry(@PathVariable Long id) {
+    public ResponseEntity<ResponseMessage> deleteCountry(@PathVariable Long id) {
         try {
             countryDao.deleteById(id);
-            return ResponseEntity.ok("Country deleted successfully");
+            return ResponseEntity.ok(new ResponseMessage("Country deleted successfully"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
