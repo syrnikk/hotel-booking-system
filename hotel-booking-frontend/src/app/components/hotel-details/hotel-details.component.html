@@ -7,6 +7,6 @@
       <p class="card-text">{{ hotel.address.city.name }} &nbsp; {{ hotel.address.street }} {{ hotel.address.number }} &nbsp; {{ hotel.address.postalCode }}</p>
       <p class="card-text">{{ hotel.description }}</p>
       <p class="card-text">Telefon: {{ hotel.phone }}</p>
-      <a href="#" class="btn btn-primary" routerLink="/room-booking" [state]="hotel">Zarezerwuj pokoje</a>
+      <a class="btn btn-primary" routerLink="/hotel/{{hotel.id}}">Zarezerwuj pokoje</a>
     </div>
 </div>

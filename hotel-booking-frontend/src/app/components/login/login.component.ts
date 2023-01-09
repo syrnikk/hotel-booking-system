@@ -29,6 +29,7 @@ export class LoginComponent {
     const observer = {
       next: (res: any) => {
         localStorage.setItem('access_token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.userDto));
         this.authService.isLoggedInSource.next(true);
         this.authService.userSource.next(res.userDto)
         this.router.navigate(['/']);

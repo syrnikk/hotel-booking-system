@@ -1,6 +1,6 @@
 <div class="container">
     <br>
-    <h2>Wybierz date pobytu i ilość osób</h2>
+    <h2>Wybierz date pobytu</h2>
     <div class="container">
     <hr>
     <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
@@ -15,10 +15,11 @@
             </div>
         </div>
         <br>
-        <button class="btn btn-primary" style="width: 100%">SHOW RESULTS</button>
+        <button class="btn btn-primary" style="width: 100%">POKAŻ WYNIKI</button>
     </form>
     <br>
     <hr>
+    <h3>{{ hotel.name }}</h3>
     <br>
     <app-room-details *ngFor="let room of availableRooms" [startDate]="startDate" [endDate]="endDate" [hotel]="hotel" [room]="room"></app-room-details>
 </div>

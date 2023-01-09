@@ -11,7 +11,7 @@ import { HotelService } from 'src/app/services/hotel.service';
 })
 export class RoomBookingComponent {
   roomForm: FormGroup;
-  hotel: any;
+  hotel: any = {};
   availableRooms = []
   startDate: any;
   endDate: any;
@@ -24,10 +24,11 @@ export class RoomBookingComponent {
   }
 
   ngOnInit() {
-      this.activatedRoute.paramMap.pipe(map(() => window.history.state)).subscribe(data => {
-        this.hotel = data;
+      this.activatedRoute.params.subscribe(data => {
+        this.hotelService.getHotelById(data['id']).subscribe(hotel => {
+          this.hotel = hotel;
+        })
       });
-      console.log(this.hotel);
   }
 
   onSubmit() {

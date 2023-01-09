@@ -144,46 +144,42 @@ AS
 SELECT h.*, a.ulica, a.numer, a.kod_pocztowy, m.nazwa AS miasto_nazwa FROM hotel h INNER JOIN adres a ON h.adres_id = a.id INNER JOIN miasto m ON m.id = a.miasto_id;
 
 
--- dodawanie rezerwacji
-CREATE VIEW rezerwacja_view AS SELECT r.id, r.uzytkownik_id, r.przyjazd_data, r.odjazd_data, pr.pokoj_id  FROM rezerwacja r INNER JOIN pokoj_rezerwacja pr ON r.id = pr.rezerwacja_id;  
-
-CREATE OR REPLACE FUNCTION rezerwacja_view_dml () RETURNS TRIGGER AS 
+CREATE OR REPLACE FUNCTION pokoj_rezerwacja_dml () RETURNS TRIGGER AS 
 $$
     DECLARE
         returned_id INTEGER;
     BEGIN                                                                                                      
     IF TG_OP = 'INSERT' THEN
         IF EXISTS (SELECT NULL 
-                FROM rezerwacja_view AS existing
-                WHERE NEW.pokoj_id = existing.pokoj_id
-                  AND NEW.przyjazd_data < existing.odjazd_data 
-                  AND existing.przyjazd_data < NEW.odjazd_data ) THEN
+                FROM pokoj_rezerwacja pr
+                INNER JOIN rezerwacja r ON r.id = pr.rezerwacja_id
+                WHERE NEW.pokoj_id = pr.pokoj_id
+                  AND (SELECT r2.przyjazd_data FROM rezerwacja r2 WHERE r2.id = NEW.rezerwacja_id) < r.odjazd_data 
+                  AND r.przyjazd_data < (SELECT r2.odjazd_data FROM rezerwacja r2 WHERE r2.id = NEW.rezerwacja_id) ) THEN
                   RAISE EXCEPTION 'Pokoj zajety !!!';
                   RETURN NULL; 
-        END IF;                                                                                   
-        INSERT INTO rezerwacja(uzytkownik_id, przyjazd_data, odjazd_data) VALUES (NEW.uzytkownik_id, NEW.przyjazd_data, NEW.odjazd_data) RETURNING id INTO returned_id;                             
-        INSERT INTO pokoj_rezerwacja(rezerwacja_id, pokoj_id) VALUES(returned_id, NEW.pokoj_id);                                
+        END IF;                                                                                                               
         RETURN NEW;                                                                                             
     ELSIF TG_OP = 'UPDATE' THEN
         IF EXISTS (SELECT NULL 
-                FROM rezerwacja_view AS existing
-                WHERE NEW.pokoj_id = existing.pokoj_id
-                  AND NEW.przyjazd_data < existing.odjazd_data 
-                  AND existing.przyjazd_data < NEW.odjazd_data ) THEN
+                FROM pokoj_rezerwacja pr
+                INNER JOIN rezerwacja r ON r.id = pr.rezerwacja_id
+                WHERE NEW.pokoj_id = pr.pokoj_id
+                  AND (SELECT r2.przyjazd_data FROM rezerwacja r2 WHERE r2.id = NEW.rezerwacja_id) < r.odjazd_data 
+                  AND r.przyjazd_data < (SELECT r2.odjazd_data FROM rezerwacja r2 WHERE r2.id = NEW.rezerwacja_id) ) THEN
                   RAISE EXCEPTION 'Pokoj zajety !!!';
-                  RETURN NULL; 
+                  RETURN NULL;
         END IF;                                                                               
-        RETURN NEW;                                                                                             
-    ELSIF TG_OP = 'DELETE' THEN                                                                                                                                                 
-        RETURN NULL;                                                                                            
+        RETURN NEW;                                                                                                                                                                                        
     END IF;                                                                                                   
     RETURN NEW;                                                                                               
     END; 
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER rezerwacja_view_dml_trigger  
-    INSTEAD OF INSERT OR UPDATE OR DELETE ON rezerwacja_view
-    FOR EACH ROW EXECUTE PROCEDURE rezerwacja_view_dml();
+CREATE TRIGGER pokoj_rezerwacja_dml_trigger  
+    BEFORE INSERT OR UPDATE ON pokoj_rezerwacja
+    FOR EACH ROW EXECUTE PROCEDURE pokoj_rezerwacja_dml();
+
 
 CREATE INDEX pokoj_hotel_id_fkey ON TABLE pokoj(hotel_id);
 
@@ -214,7 +210,43 @@ $$
     END
 $$ LANGUAGE plpgsql;
 
-SELECT r.id, h.nazwa, tp.typ, SUM(tp.cena) AS cena, r.przyjazd_data, r.odjazd_data FROM rezerwacja r INNER JOIN pokoj_rezerwacja pr
-            ON r.id = pr.rezerwacja_id INNER JOIN pokoj p ON p.id = pr.pokoj_id
-            INNER JOIN typ_pokoju tp ON p.typ_pokoju_id = tp.id INNER JOIN hotel h ON h.id = p.hotel_id
-            WHERE r.uzytkownik_id = 3 GROUP BY r.id, r.przyjazd_data, r.odjazd_data, h.nazwa, tp.typ;
+-- dodawanie rezerwacji
+-- CREATE VIEW rezerwacja_view AS SELECT r.id, r.uzytkownik_id, r.przyjazd_data, r.odjazd_data, pr.pokoj_id  FROM rezerwacja r INNER JOIN pokoj_rezerwacja pr ON r.id = pr.rezerwacja_id;  
+
+-- CREATE OR REPLACE FUNCTION rezerwacja_view_dml () RETURNS TRIGGER AS 
+-- $$
+--     DECLARE
+--         returned_id INTEGER;
+--     BEGIN                                                                                                      
+--     IF TG_OP = 'INSERT' THEN
+--         IF EXISTS (SELECT NULL 
+--                 FROM rezerwacja_view AS existing
+--                 WHERE NEW.pokoj_id = existing.pokoj_id
+--                   AND NEW.przyjazd_data < existing.odjazd_data 
+--                   AND existing.przyjazd_data < NEW.odjazd_data ) THEN
+--                   RAISE EXCEPTION 'Pokoj zajety !!!';
+--                   RETURN NULL; 
+--         END IF;                                                                                   
+--         INSERT INTO rezerwacja(uzytkownik_id, przyjazd_data, odjazd_data) VALUES (NEW.uzytkownik_id, NEW.przyjazd_data, NEW.odjazd_data) RETURNING id INTO returned_id;                             
+--         INSERT INTO pokoj_rezerwacja(rezerwacja_id, pokoj_id) VALUES(returned_id, NEW.pokoj_id);                                
+--         RETURN NEW;                                                                                             
+--     ELSIF TG_OP = 'UPDATE' THEN
+--         IF EXISTS (SELECT NULL 
+--                 FROM rezerwacja_view AS existing
+--                 WHERE NEW.pokoj_id = existing.pokoj_id
+--                   AND NEW.przyjazd_data < existing.odjazd_data 
+--                   AND existing.przyjazd_data < NEW.odjazd_data ) THEN
+--                   RAISE EXCEPTION 'Pokoj zajety !!!';
+--                   RETURN NULL; 
+--         END IF;                                                                               
+--         RETURN NEW;                                                                                             
+--     ELSIF TG_OP = 'DELETE' THEN                                                                                                                                                 
+--         RETURN NULL;                                                                                            
+--     END IF;                                                                                                   
+--     RETURN NEW;                                                                                               
+--     END; 
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE TRIGGER rezerwacja_view_dml_trigger  
+--     INSTEAD OF INSERT OR UPDATE OR DELETE ON rezerwacja_view
+--     FOR EACH ROW EXECUTE PROCEDURE rezerwacja_view_dml();

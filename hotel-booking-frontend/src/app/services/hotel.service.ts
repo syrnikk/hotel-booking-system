@@ -33,4 +33,8 @@ export class HotelService {
   getReservations() {
     return this.http.get<any>("/api/booking");
   }
+
+  getHotelById(id: number) {
+    return this.http.get<any>(`/api/hotel/${id}`);
+  }
 }

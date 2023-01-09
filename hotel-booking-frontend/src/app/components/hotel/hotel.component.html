@@ -1,19 +1,19 @@
 <div class="container">
     <br>
-    <h2>Select country and city</h2>
+    <h2>Wybierz kraj i miasto</h2>
     <div class="container">
     <hr>
     <form [formGroup]="hotelForm" (ngSubmit)="onSubmit()">
         <div>
             <div class="form-group m-2" style="display: inline-block;">
-                <label for="source">COUNTRY</label>
+                <label for="source">KRAJ</label>
                 <select class="form-select" id="country" name="country-select" style="min-width: 255px;" [(ngModel)]="selectedCountry" (ngModelChange)="updateCities($event)" formControlName="country">
                     <option value="">-</option>
                     <option *ngFor="let country of countries">{{ country.name }}</option>
                 </select>
             </div>
             <div class="form-group" style="display: inline-block;">
-                <label for="destination">CITY</label>
+                <label for="destination">MIASTO</label>
                 <select class="form-select" id="city" style="min-width: 255px;" formControlName="city">
                     <option value="" selected>-</option>
                     <option *ngFor="let city of cities">{{ city.name }}</option>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <br>
-        <button class="btn btn-primary" style="width: 100%">SHOW RESULTS</button>
+        <button class="btn btn-primary" style="width: 100%">POKAŻ WYNIKI</button>
     </form>
     <br>
     <hr>

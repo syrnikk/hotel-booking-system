@@ -30,6 +30,7 @@ export class AuthService {
 
   logout() {
     let removeToken = localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
     if (removeToken == null) {
       this.isLoggedInSource.next(false);
       this.userSource.next(null);
@@ -44,5 +45,13 @@ export class AuthService {
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return authToken !== null ? true : false;
+  }
+
+  get user(): any {
+    const userData = localStorage.getItem('user');
+    if (userData != null) {
+      return JSON.parse(userData);
+    }
+    return null;
   }
 }
