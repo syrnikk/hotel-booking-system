@@ -16,6 +16,8 @@ import { AdminCityComponent } from './components/admin/city/admin-city/admin-cit
 import { AdminAddCityComponent } from './components/admin/city/admin-add-city/admin-add-city.component';
 import { AdminHotelComponent } from './components/admin/hotel/admin-hotel/admin-hotel.component';
 import { AdminAddHotelComponent } from './components/admin/hotel/admin-add-hotel/admin-add-hotel.component';
+import { AdminRoomTypeComponent } from './components/admin/room-type/admin-room-type/admin-room-type.component';
+import { AdminAddRoomTypeComponent } from './components/admin/room-type/admin-add-room-type/admin-add-room-type.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
@@ -31,7 +33,9 @@ const routes: Routes = [
     { path: 'city', component: AdminCityComponent, canActivate: [AuthGuard] },
     { path: 'add-city', component: AdminAddCityComponent, canActivate: [AuthGuard] },
     { path: 'hotel', component: AdminHotelComponent, canActivate: [AuthGuard] },
-    { path: 'add-hotel', component: AdminAddHotelComponent, canActivate: [AuthGuard] }
+    { path: 'add-hotel', component: AdminAddHotelComponent, canActivate: [AuthGuard] },
+    { path: 'room-type', component: AdminRoomTypeComponent, canActivate: [AuthGuard] },
+    { path: 'add-room-type', component: AdminAddRoomTypeComponent, canActivate: [AuthGuard] }
   ] }
 ];
 

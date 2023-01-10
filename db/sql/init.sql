@@ -113,8 +113,8 @@ CREATE TABLE pokoj(
     numer_pokoju    VARCHAR(8) NOT NULL,
     pietro          INT,
     PRIMARY KEY(id),
-    FOREIGN KEY(hotel_id) REFERENCES hotel(id),
-    FOREIGN KEY(typ_pokoju_id) REFERENCES typ_pokoju(id)
+    FOREIGN KEY(hotel_id) REFERENCES hotel(id) ON DELETE CASCADE,
+    FOREIGN KEY(typ_pokoju_id) REFERENCES typ_pokoju(id) ON DELETE NULL
 );
 
 CREATE TABLE pokoj_rezerwacja(
@@ -141,7 +141,7 @@ SELECT m.id, m.nazwa AS miasto_nazwa, m.kraj_id, k.nazwa AS kraj_nazwa FROM mias
 
 CREATE OR REPLACE VIEW hotel_view
 AS
-SELECT h.*, a.ulica, a.numer, a.kod_pocztowy, m.id AS m_id, m.nazwa AS miasto_nazwa FROM hotel h INNER JOIN adres a ON h.adres_id = a.id INNER JOIN miasto m ON m.id = a.miasto_id;
+SELECT h.*, a.ulica, a.numer, a.kod_pocztowy, m.id AS miasto_id, m.nazwa AS miasto_nazwa FROM hotel h INNER JOIN adres a ON h.adres_id = a.id INNER JOIN miasto m ON m.id = a.miasto_id;
 
 
 CREATE OR REPLACE FUNCTION pokoj_rezerwacja_dml () RETURNS TRIGGER AS 

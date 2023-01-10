@@ -1,0 +1,32 @@
+<h1>Typ pokoju</h1>
+<a routerLink="/admin/add-room-type" class="btn btn-sm btn-success mb-2">Dodaj</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>typ</th>
+            <th>ilosc osób</th>
+            <th>cena</th>
+            <th>opis</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let roomType of roomTypes">
+            <td>{{ roomType.id }}</td>
+            <td>{{ roomType.type }}</td>
+            <td>{{ roomType.amountOfPeople }}</td>
+            <td>{{ roomType.price }}</td>
+            <td>{{ roomType.description }}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="/admin/edit-room-type/{{roomType.id}}" class="btn btn-sm btn-primary mr-1">Edytuj</a>
+                <button (click)="deleteRoomType(roomType.id)" class="btn btn-sm btn-danger">Delete</button>
+            </td>
+        </tr>
+        <tr *ngIf="!roomTypes">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
