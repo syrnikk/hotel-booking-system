@@ -20,6 +20,10 @@ import { AdminAddCountryComponent } from './components/admin/country/admin-add-c
 import { AdminEditCountryComponent } from './components/admin/country/admin-edit-country/admin-edit-country.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-sidebar.component';
+import { AdminCityComponent } from './components/admin/city/admin-city/admin-city.component';
+import { AdminAddCityComponent } from './components/admin/city/admin-add-city/admin-add-city.component';
+import { AdminAddressComponent } from './components/admin/address/admin-address/admin-address.component';
+import { AdminAddAddressComponent } from './components/admin/address/admin-add-address/admin-add-address.component';
 
 
 @NgModule({
@@ -38,7 +42,11 @@ import { AdminSidebarComponent } from './components/admin/admin-sidebar/admin-si
     AdminAddCountryComponent,
     AdminEditCountryComponent,
     AdminMainComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    AdminCityComponent,
+    AdminAddCityComponent,
+    AdminAddressComponent,
+    AdminAddAddressComponent
   ],
   imports: [
     BrowserModule,

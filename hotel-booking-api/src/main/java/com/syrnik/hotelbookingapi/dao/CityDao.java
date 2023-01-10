@@ -1,7 +1,10 @@
 package com.syrnik.hotelbookingapi.dao;
 
 import com.syrnik.hotelbookingapi.constants.CitySQL;
+import com.syrnik.hotelbookingapi.constants.CountrySQL;
 import com.syrnik.hotelbookingapi.dto.CityDto;
+import com.syrnik.hotelbookingapi.model.City;
+import com.syrnik.hotelbookingapi.model.Country;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +33,43 @@ public class CityDao {
             }
         }
         return cities;
+    }
+
+    public List<City> find() throws SQLException {
+        List<City> cities = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CitySQL.SELECT_CITIES_SQL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while(resultSet.next()) {
+                Country country = Country.builder()
+                        .id(resultSet.getLong(3))
+                        .name(resultSet.getString(4))
+                        .build();
+                City city = City.builder()
+                        .id(resultSet.getLong(1))
+                        .name(resultSet.getString(2))
+                        .country(country)
+                        .build();
+                cities.add(city);
+            }
+        }
+        return cities;
+    }
+
+    public void deleteById(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CitySQL.DELETE_CITY_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void save(City city) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CitySQL.INSERT_CITY_SQL)) {
+            preparedStatement.setString(1, city.getName());
+            preparedStatement.setLong(2, city.getCountry().getId());
+            preparedStatement.executeUpdate();
+        }
     }
 }

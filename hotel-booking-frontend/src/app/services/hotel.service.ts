@@ -15,7 +15,7 @@ export class HotelService {
   }
 
   getCitiesByCountryName(countryName: string): Observable<any[]> {
-    return this.http.get<any[]>(`/api/city?countryName=${countryName}`)
+    return this.http.get<any[]>(`/api/cities?countryName=${countryName}`)
   }
 
   getHotelsByCityName(cityName: string) {

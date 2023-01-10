@@ -12,6 +12,10 @@ import { AdminMainComponent } from './components/admin/admin-main/admin-main.com
 import { AdminCountryComponent } from './components/admin/country/admin-country/admin-country.component';
 import { AdminAddCountryComponent } from './components/admin/country/admin-add-country/admin-add-country.component';
 import { AdminEditCountryComponent } from './components/admin/country/admin-edit-country/admin-edit-country.component';
+import { AdminCityComponent } from './components/admin/city/admin-city/admin-city.component';
+import { AdminAddCityComponent } from './components/admin/city/admin-add-city/admin-add-city.component';
+import { AdminAddressComponent } from './components/admin/address/admin-address/admin-address.component';
+import { AdminAddAddressComponent } from './components/admin/address/admin-add-address/admin-add-address.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
@@ -23,7 +27,11 @@ const routes: Routes = [
   { path: 'admin', component: AdminMainComponent, canActivate: [AuthGuard], children: [
     { path: 'country', component: AdminCountryComponent, canActivate: [AuthGuard] },
     { path: 'add-country', component: AdminAddCountryComponent, canActivate: [AuthGuard] },
-    { path: 'edit-country', component: AdminEditCountryComponent, canActivate: [AuthGuard] }
+    { path: 'edit-country', component: AdminEditCountryComponent, canActivate: [AuthGuard] },
+    { path: 'city', component: AdminCityComponent, canActivate: [AuthGuard] },
+    { path: 'add-city', component: AdminAddCityComponent, canActivate: [AuthGuard] },
+    { path: 'address', component: AdminAddressComponent, canActivate: [AuthGuard] },
+    { path: 'add-address', component: AdminAddAddressComponent, canActivate: [AuthGuard] }
   ]}
 ];
 
