@@ -24,6 +24,8 @@ import { AdminCityComponent } from './components/admin/city/admin-city/admin-cit
 import { AdminAddCityComponent } from './components/admin/city/admin-add-city/admin-add-city.component';
 import { AdminAddressComponent } from './components/admin/address/admin-address/admin-address.component';
 import { AdminAddAddressComponent } from './components/admin/address/admin-add-address/admin-add-address.component';
+import { AdminHotelComponent } from './components/admin/hotel/admin-hotel/admin-hotel.component';
+import { AdminAddHotelComponent } from './components/admin/hotel/admin-add-hotel/admin-add-hotel.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { AdminAddAddressComponent } from './components/admin/address/admin-add-a
     AdminCityComponent,
     AdminAddCityComponent,
     AdminAddressComponent,
-    AdminAddAddressComponent
+    AdminAddAddressComponent,
+    AdminHotelComponent,
+    AdminAddHotelComponent
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@
         <img src="assets/hotel.png" alt="hotel" width="160" height="160">
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{ hotel.name }}</h5>
+      <h5 class="card-title">{{ hotel.name }} &nbsp; {{ hotel.stars }} <i class="bi bi-star text-warning"></i></h5>
       <p class="card-text">{{ hotel.address.city.name }} &nbsp; {{ hotel.address.street }} {{ hotel.address.number }} &nbsp; {{ hotel.address.postalCode }}</p>
       <p class="card-text">{{ hotel.description }}</p>
       <p class="card-text">Telefon: {{ hotel.phone }}</p>

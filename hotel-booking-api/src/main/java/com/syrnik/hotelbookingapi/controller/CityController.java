@@ -21,9 +21,9 @@ public class CityController {
     private final CityDao cityDao;
 
     @GetMapping("/cities")
-    public ResponseEntity<List<CityDto>> getCitiesByCountryName(@RequestParam String countryName) {
+    public ResponseEntity<List<City>> getCitiesByCountryName(@RequestParam String countryName) {
         try {
-            List<CityDto> cities = cityDao.findByCountryName(countryName);
+            List<City> cities = cityDao.findByCountryName(countryName);
             if(cities.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
@@ -49,7 +49,7 @@ public class CityController {
     }
 
     @PostMapping("/city")
-    public ResponseEntity<ResponseMessage> addCountry(@RequestBody City city) {
+    public ResponseEntity<ResponseMessage> addCity(@RequestBody City city) {
         try {
             cityDao.save(city);
             return ResponseEntity.ok(new ResponseMessage("City added successfully"));

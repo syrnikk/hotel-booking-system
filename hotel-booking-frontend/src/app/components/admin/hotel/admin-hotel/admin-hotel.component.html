@@ -1,0 +1,36 @@
+<h1>Hotele</h1>
+<a routerLink="/admin/add-hotel" class="btn btn-sm btn-success mb-2">Dodaj</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>nazwa</th>
+            <th>adres</th>
+            <th>telefon</th>
+            <th>tytuł</th>
+            <th>opis</th>
+            <th>gwiazdki</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let hotel of hotels">
+            <td>{{ hotel.id }}</td>
+            <td>{{ hotel.name }}</td>
+            <td>{{ hotel.address.city.name }} &nbsp; {{ hotel.address.street }} {{ hotel.address.number }} &nbsp; {{ hotel.address.postalCode }}</td>
+            <td>{{ hotel.phone }}</td>
+            <td>{{ hotel.title }}</td>
+            <td>{{ hotel.description }}</td>
+            <td>{{ hotel.stars }}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="/admin/edit-city/{{hotel.id}}" class="btn btn-sm btn-primary mr-1">Edytuj</a>
+                <button (click)="deleteHotel(hotel.id)" class="btn btn-sm btn-danger">Delete</button>
+            </td>
+        </tr>
+        <tr *ngIf="!hotels">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
