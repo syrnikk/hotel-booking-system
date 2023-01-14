@@ -75,4 +75,37 @@ public class CityDao {
             preparedStatement.executeUpdate();
         }
     }
+
+
+    public City findById(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CitySQL.SELECT_CITY_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            try( ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    Country country = Country.builder()
+                            .id(resultSet.getLong(3))
+                            .name(resultSet.getString(4))
+                            .build();
+                    City city = City.builder()
+                            .id(resultSet.getLong(1))
+                            .name(resultSet.getString(2))
+                            .country(country)
+                            .build();
+                    return city;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void updateById(Long id, City city) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CitySQL.UPDATE_CITY_SQL)) {
+            preparedStatement.setLong(1, city.getCountry().getId());
+            preparedStatement.setString(2, city.getName());
+            preparedStatement.setLong(3, id);
+            preparedStatement.executeUpdate();
+        }
+    }
 }

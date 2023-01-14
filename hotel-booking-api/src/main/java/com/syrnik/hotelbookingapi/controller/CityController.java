@@ -69,4 +69,29 @@ public class CityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/city/{id}")
+    public ResponseEntity<City> finCityById(@PathVariable Long id) {
+        try {
+            City city = cityDao.findById(id);
+            if(city == null) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+            return ResponseEntity.ok(city);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/city/{id}")
+    public ResponseEntity<ResponseMessage> updateCityById(@PathVariable Long id, @RequestBody City city) {
+        try {
+            cityDao.updateById(id, city);
+            return ResponseEntity.ok(new ResponseMessage("City updated successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
