@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'hotel/:id', component: RoomBookingComponent, canActivate: [AuthGuard] },
   { path: 'reservation', component: ReservationsComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminMainComponent, canActivate: [AuthGuard], children: [
+    { path: '',   redirectTo: 'country', pathMatch: 'full' },    
     { path: 'country', component: AdminCountryComponent, canActivate: [AuthGuard] },
     { path: 'add-country', component: AdminAddCountryComponent, canActivate: [AuthGuard] },
     { path: 'edit-country/:id', component: AdminAddCountryComponent, canActivate: [AuthGuard] },
@@ -36,6 +37,7 @@ const routes: Routes = [
     { path: 'edit-city/:id', component: AdminAddCityComponent, canActivate: [AuthGuard] },
     { path: 'hotel', component: AdminHotelComponent, canActivate: [AuthGuard] },
     { path: 'add-hotel', component: AdminAddHotelComponent, canActivate: [AuthGuard] },
+    { path: 'edit-hotel/:id', component: AdminAddHotelComponent, canActivate: [AuthGuard] },
     { path: 'room-type', component: AdminRoomTypeComponent, canActivate: [AuthGuard] },
     { path: 'add-room-type', component: AdminAddRoomTypeComponent, canActivate: [AuthGuard] },
     { path: 'room', component: AdminRoomComponent, canActivate: [AuthGuard] },

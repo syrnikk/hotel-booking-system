@@ -31,4 +31,16 @@ public class AddressDao {
         }
         return null;
     }
+
+    public void updateById(Long id, Address address) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(AddressSQL.UPDATE_ADDRESS_SQL)) {
+            preparedStatement.setLong(1, address.getCity().getId());
+            preparedStatement.setString(2, address.getStreet());
+            preparedStatement.setString(3, address.getNumber());
+            preparedStatement.setString(4, address.getPostalCode());
+            preparedStatement.setLong(5, id);
+            preparedStatement.executeUpdate();
+        }
+    }
 }

@@ -23,7 +23,7 @@
             <td>{{ hotel.description }}</td>
             <td>{{ hotel.stars }}</td>
             <td style="white-space: nowrap">
-                <a routerLink="/admin/edit-city/{{hotel.id}}" class="btn btn-sm btn-primary mr-1">Edytuj</a>
+                <a routerLink="/admin/edit-hotel/{{hotel.id}}" class="btn btn-sm btn-primary mr-1">Edytuj</a>
                 <button (click)="deleteHotel(hotel.id)" class="btn btn-sm btn-danger">Delete</button>
             </td>
         </tr>

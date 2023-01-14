@@ -5,6 +5,7 @@ import com.syrnik.hotelbookingapi.constants.HotelSQL;
 import com.syrnik.hotelbookingapi.dto.CityDto;
 import com.syrnik.hotelbookingapi.model.Address;
 import com.syrnik.hotelbookingapi.model.City;
+import com.syrnik.hotelbookingapi.model.Country;
 import com.syrnik.hotelbookingapi.model.Hotel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -93,10 +94,17 @@ public class HotelDao {
             preparedStatement.setLong(1, hotelId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
+                    Country country = Country.builder()
+                            .id(resultSet.getLong(13))
+                            .name(resultSet.getString(14))
+                            .build();
                     City city = City.builder()
-                            .name(resultSet.getString(11))
+                            .id(resultSet.getLong(11))
+                            .name(resultSet.getString(12))
+                            .country(country)
                             .build();
                     Address address = Address.builder()
+                            .id(resultSet.getLong(3))
                             .city(city)
                             .street(resultSet.getString(8))
                             .number(resultSet.getString(9))
@@ -136,6 +144,21 @@ public class HotelDao {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(HotelSQL.DELETE_HOTEL_BY_ID_SQL)) {
             preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void updateById(Long id, Hotel hotel) throws SQLException {
+        addressDao.updateById(hotel.getAddress().getId(), hotel.getAddress());
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(HotelSQL.UPDATE_HOTEL_SQL)) {
+            preparedStatement.setString(1, hotel.getName());
+            preparedStatement.setLong(2, hotel.getAddress().getId());
+            preparedStatement.setString(3, hotel.getPhone());
+            preparedStatement.setString(4, hotel.getTitle());
+            preparedStatement.setString(5, hotel.getDescription());
+            preparedStatement.setInt(6, hotel.getStars());
+            preparedStatement.setLong(7, id);
             preparedStatement.executeUpdate();
         }
     }

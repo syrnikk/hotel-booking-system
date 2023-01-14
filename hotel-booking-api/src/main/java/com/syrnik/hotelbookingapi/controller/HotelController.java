@@ -48,10 +48,10 @@ public class HotelController {
         }
     }
 
-    @GetMapping("/hotel/{hotelId}")
-    public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
+    @GetMapping("/hotel/{id}")
+    public ResponseEntity<Hotel> getHotelById(@PathVariable Long id) {
         try {
-            Hotel hotel = hotelDao.findById(hotelId);
+            Hotel hotel = hotelDao.findById(id);
             if(hotel == null) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
@@ -67,6 +67,17 @@ public class HotelController {
         try {
             hotelDao.save(hotel);
             return ResponseEntity.ok(new ResponseMessage("Hotel added successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/hotel/{id}")
+    public ResponseEntity<ResponseMessage> updateHotelById(@PathVariable Long id, @RequestBody Hotel hotel) {
+        try {
+            hotelDao.updateById(id, hotel);
+            return ResponseEntity.ok(new ResponseMessage("Hotel updated successfully"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -135,17 +135,35 @@ CREATE TABLE ocena(
     FOREIGN KEY(uzytkownik_id) REFERENCES uzytkownik(id)
 );
 
+CREATE INDEX pokoj_hotel_id_fkey 
+ON TABLE pokoj(hotel_id);
+
 CREATE OR REPLACE VIEW miasto_view
 AS
-SELECT m.id, m.nazwa AS miasto_nazwa, m.kraj_id, k.nazwa AS kraj_nazwa FROM miasto m INNER JOIN kraj k ON k.id = m.kraj_id;
+SELECT m.id, m.nazwa AS miasto_nazwa, m.kraj_id, k.nazwa AS kraj_nazwa 
+FROM miasto m 
+INNER JOIN kraj k 
+ON k.id = m.kraj_id;
 
 CREATE OR REPLACE VIEW hotel_view
 AS
-SELECT h.*, a.ulica, a.numer, a.kod_pocztowy, m.id AS miasto_id, m.nazwa AS miasto_nazwa FROM hotel h INNER JOIN adres a ON h.adres_id = a.id INNER JOIN miasto m ON m.id = a.miasto_id;
+SELECT h.*, a.ulica, a.numer, a.kod_pocztowy, m.id AS miasto_id, m.nazwa AS miasto_nazwa, k.id AS kraj_id, k.nazwa AS kraj_nazwa 
+FROM hotel h 
+INNER JOIN adres a 
+ON h.adres_id = a.id 
+INNER JOIN miasto m 
+ON m.id = a.miasto_id 
+INNER JOIN kraj k 
+ON k.id = m.kraj_id;
 
 CREATE OR REPLACE VIEW pokoj_view
 AS
-SELECT p.id, p.numer_pokoju, p.pietro, h.id AS hotel_id, h.nazwa, tp.id AS typ_pokoju_id, tp.typ FROM pokoj p INNER JOIN hotel h ON h.id = p.hotel_id INNER JOIN typ_pokoju tp ON tp.id = p.typ_pokoju_id;
+SELECT p.id, p.numer_pokoju, p.pietro, h.id AS hotel_id, h.nazwa, tp.id AS typ_pokoju_id, tp.typ 
+FROM pokoj p 
+INNER JOIN hotel h 
+ON h.id = p.hotel_id 
+INNER JOIN typ_pokoju tp
+ON tp.id = p.typ_pokoju_id;
 
 CREATE OR REPLACE FUNCTION pokoj_rezerwacja_dml () RETURNS TRIGGER AS 
 $$
@@ -182,9 +200,6 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER pokoj_rezerwacja_dml_trigger  
 BEFORE INSERT OR UPDATE ON pokoj_rezerwacja
 FOR EACH ROW EXECUTE PROCEDURE pokoj_rezerwacja_dml();
-
-
-CREATE INDEX pokoj_hotel_id_fkey ON TABLE pokoj(hotel_id);
 
 CREATE OR REPLACE FUNCTION get_dostepne_pokoje(id_hotelu BIGINT, data_przyjazdu DATE, data_odjazdu DATE)
 RETURNS TABLE (LIKE pokoj)
