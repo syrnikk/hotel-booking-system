@@ -143,6 +143,9 @@ CREATE OR REPLACE VIEW hotel_view
 AS
 SELECT h.*, a.ulica, a.numer, a.kod_pocztowy, m.id AS miasto_id, m.nazwa AS miasto_nazwa FROM hotel h INNER JOIN adres a ON h.adres_id = a.id INNER JOIN miasto m ON m.id = a.miasto_id;
 
+CREATE OR REPLACE VIEW pokoj_view
+AS
+SELECT p.id, p.numer_pokoju, p.pietro, h.id AS hotel_id, h.nazwa, tp.id AS typ_pokoju_id, tp.typ FROM pokoj p INNER JOIN hotel h ON h.id = p.hotel_id INNER JOIN typ_pokoju tp ON tp.id = p.typ_pokoju_id;
 
 CREATE OR REPLACE FUNCTION pokoj_rezerwacja_dml () RETURNS TRIGGER AS 
 $$

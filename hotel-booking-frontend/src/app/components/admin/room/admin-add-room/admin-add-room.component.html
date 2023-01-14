@@ -1,0 +1,38 @@
+<h1 *ngIf="isAddMode">Dodaj pokók</h1>
+<h1 *ngIf="!isAddMode">Edytuj pokój</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-floating m-1">
+            <select class="form-select" id="roomType" style="min-width: 255px;" formControlName="roomType" required>
+                <option *ngFor="let roomType of roomTypes" value="{{ roomType.id }}">{{ roomType.type }}</option>
+            </select>
+            <label>typ pokoju</label>
+        </div>
+        <div class="form-floating m-1">
+            <select class="form-select" id="hotel" style="min-width: 255px;" formControlName="hotel" required>
+                <option *ngFor="let hotel of hotels" value="{{ hotel.id }}">{{ hotel.name }}</option>
+            </select>
+            <label>hotel</label>
+        </div>
+        <div class="form-floating m-1">
+            <input type="text" formControlName="number" placeholder="numer pokoju" class="form-control" required/>
+            <label>numer pokoju</label>
+        </div>
+        <div class="form-floating m-1">
+            <input type="number" formControlName="floor" placeholder="piętro" class="form-control" required/>
+            <label>piętro</label>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <button class="btn btn-primary">
+            Zapisz
+        </button>
+        <a routerLink="/admin/room" class="btn btn-link">Cofnij</a>
+    </div>
+    <div class="form-group m-2">
+        <div *ngIf="showValidationError" class="alert alert-danger" role="alert">
+          Failed!
+        </div>
+    </div>
+</form>

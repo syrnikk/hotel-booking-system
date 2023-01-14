@@ -1,0 +1,32 @@
+<h1>Pokoje</h1>
+<a routerLink="/admin/add-room" class="btn btn-sm btn-success mb-2">Dodaj</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>typ pokoju</th>
+            <th>hotel</th>
+            <th>numer pokoju</th>
+            <th>piętro</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let room of rooms">
+            <td>{{ room.id }}</td>
+            <td>{{ room.roomType.type }}</td>
+            <td>{{ room.hotel.name }}</td>
+            <td>{{ room.number }}</td>
+            <td>{{ room.floor }}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="/admin/edit-room/{{room.id}}" class="btn btn-sm btn-primary mr-1">Edytuj</a>
+                <button (click)="deleteRoom(room.id)" class="btn btn-sm btn-danger">Delete</button>
+            </td>
+        </tr>
+        <tr *ngIf="!rooms">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,7 +1,9 @@
 package com.syrnik.hotelbookingapi.dao;
 
+import com.syrnik.hotelbookingapi.constants.CitySQL;
 import com.syrnik.hotelbookingapi.constants.RoomSQL;
 import com.syrnik.hotelbookingapi.dto.AvailableRoomDto;
+import com.syrnik.hotelbookingapi.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -54,6 +56,52 @@ public class RoomDao {
                 }
             }
             return availableRooms;
+        }
+    }
+
+    public List<Room> find() throws SQLException {
+        List<Room> rooms = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomSQL.SELECT_ROOMS_SQL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while(resultSet.next()) {
+                RoomType roomType = RoomType.builder()
+                        .id(resultSet.getLong(6))
+                        .type(resultSet.getString(7))
+                        .build();
+                Hotel hotel = Hotel.builder()
+                        .id(resultSet.getLong(4))
+                        .name(resultSet.getString(5))
+                        .build();
+                Room room = Room.builder()
+                        .id(resultSet.getLong(1))
+                        .roomNumber(resultSet.getString(2))
+                        .floor(resultSet.getInt(3))
+                        .roomType(roomType)
+                        .hotel(hotel)
+                        .build();
+                rooms.add(room);
+            }
+        }
+        return rooms;
+    }
+
+    public void save(Room room) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomSQL.INSERT_ROOM_SQL)) {
+            preparedStatement.setLong(1, room.getRoomType().getId());
+            preparedStatement.setLong(2, room.getHotel().getId());
+            preparedStatement.setString(3, room.getRoomNumber());
+            preparedStatement.setInt(4, room.getFloor());
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void deleteById(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomSQL.DELETE_ROOM_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
         }
     }
 }

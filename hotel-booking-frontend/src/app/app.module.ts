@@ -28,6 +28,8 @@ import { AdminHotelComponent } from './components/admin/hotel/admin-hotel/admin-
 import { AdminAddHotelComponent } from './components/admin/hotel/admin-add-hotel/admin-add-hotel.component';
 import { AdminRoomTypeComponent } from './components/admin/room-type/admin-room-type/admin-room-type.component';
 import { AdminAddRoomTypeComponent } from './components/admin/room-type/admin-add-room-type/admin-add-room-type.component';
+import { AdminRoomComponent } from './components/admin/room/admin-room/admin-room.component';
+import { AdminAddRoomComponent } from './components/admin/room/admin-add-room/admin-add-room.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { AdminAddRoomTypeComponent } from './components/admin/room-type/admin-ad
     AdminHotelComponent,
     AdminAddHotelComponent,
     AdminRoomTypeComponent,
-    AdminAddRoomTypeComponent
+    AdminAddRoomTypeComponent,
+    AdminRoomComponent,
+    AdminAddRoomComponent
   ],
   imports: [
     BrowserModule,

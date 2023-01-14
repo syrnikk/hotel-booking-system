@@ -23,7 +23,7 @@ export class HotelService {
   }
 
   getAvailableRooms(hotelId: number, startDate: string, endDate: string) {
-    return this.http.get<any>(`/api/room?hotelId=${hotelId}&startDate=${startDate}&endDate=${endDate}`)
+    return this.http.get<any>(`/api/available-rooms?hotelId=${hotelId}&startDate=${startDate}&endDate=${endDate}`)
   }
 
   makeBooking(bookingRequest: any) {
