@@ -11,7 +11,6 @@ import { AuthGuard } from './auth/auth.guard';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { AdminCountryComponent } from './components/admin/country/admin-country/admin-country.component';
 import { AdminAddCountryComponent } from './components/admin/country/admin-add-country/admin-add-country.component';
-import { AdminEditCountryComponent } from './components/admin/country/admin-edit-country/admin-edit-country.component';
 import { AdminCityComponent } from './components/admin/city/admin-city/admin-city.component';
 import { AdminAddCityComponent } from './components/admin/city/admin-add-city/admin-add-city.component';
 import { AdminHotelComponent } from './components/admin/hotel/admin-hotel/admin-hotel.component';

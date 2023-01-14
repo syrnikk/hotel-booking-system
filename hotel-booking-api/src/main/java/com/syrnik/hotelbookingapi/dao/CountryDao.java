@@ -45,4 +45,29 @@ public class CountryDao {
             preparedStatement.executeUpdate();
         }
     }
+
+    public Country findById(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CountrySQL.SELECT_COUNTRY_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            try( ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    return Country.builder()
+                            .id(resultSet.getLong(1))
+                            .name(resultSet.getString(2))
+                            .build();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void updateById(Long id, Country country) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CountrySQL.UPDATE_COUNTRY_SQL)) {
+            preparedStatement.setString(1, country.getName());
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
+        }
+    }
 }
