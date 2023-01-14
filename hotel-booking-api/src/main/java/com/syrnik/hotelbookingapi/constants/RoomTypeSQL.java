@@ -9,4 +9,10 @@ public class RoomTypeSQL {
 
     public static final String DELETE_ROOM_TYPE_BY_ID_SQL =
             "DELETE FROM typ_pokoju WHERE id = ?";
+
+    public static final String SELECT_ROOM_TYPE_BY_ID_SQL =
+            "SELECT * FROM typ_pokoju WHERE id = ?";
+
+    public static final String UPDATE_ROOM_TYPE_SQL =
+            "UPDATE typ_pokoju SET typ = ?, ilosc_osob = ?, cena = ?, opis = ? WHERE id = ?";
 }

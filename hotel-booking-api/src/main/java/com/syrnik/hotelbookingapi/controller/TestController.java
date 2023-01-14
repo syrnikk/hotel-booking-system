@@ -15,9 +15,7 @@ import java.util.Collection;
 @RequestMapping("/api/test")
 public class TestController {
     @GetMapping("all")
-    public String all(Authentication authentication) {
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        System.out.println("aa");
+    public String all() {
         return "all";
     }
 

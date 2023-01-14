@@ -56,4 +56,35 @@ public class RoomTypeDao {
             preparedStatement.executeUpdate();
         }
     }
+
+    public RoomType findById(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomTypeSQL.SELECT_ROOM_TYPE_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            try( ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    return RoomType.builder()
+                            .id(resultSet.getLong(1))
+                            .type(resultSet.getString(2))
+                            .amountOfPeople(resultSet.getInt(3))
+                            .price(resultSet.getBigDecimal(4))
+                            .description(resultSet.getString(5))
+                            .build();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void updateById(Long id, RoomType roomType) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomTypeSQL.UPDATE_ROOM_TYPE_SQL)) {
+            preparedStatement.setString(1, roomType.getType());
+            preparedStatement.setInt(2, roomType.getAmountOfPeople());
+            preparedStatement.setBigDecimal(3, roomType.getPrice());
+            preparedStatement.setString(4, roomType.getDescription());
+            preparedStatement.setLong(5, id);
+            preparedStatement.executeUpdate();
+        }
+    }
 }
