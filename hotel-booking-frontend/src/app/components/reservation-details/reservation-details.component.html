@@ -1,9 +1,14 @@
 <div class="card w-100 d-flex flex-row m-2">
     <div class="card-body">
-      <h5 class="card-title">{{ reservation.hotelName }}</h5>
+      <h3 class="card-title">{{ reservation.hotelName }}</h3>
       <p class="card-text">{{ reservation.roomType }}</p>
-      <p class="card-text">Ilosc pokoji: {{ reservation.roomAmount }}</p>
-      <p class="card-text">Cena za rezerwacje: {{ reservation.price | currency: 'EUR' }}</p>
-      <p class="card-text">Czas pobytu {{ reservation.startDate }} - {{ reservation.endDate }}</p>
+      <hr>
+      <p class="card-text"><span class="fw-bold">Ilosc pokoji:</span> {{ reservation.roomAmount }}</p>
+      <p class="card-text"><span class="fw-bold">Cena za rezerwacje:</span> {{ reservation.price | currency: 'EUR' }}</p>
+      <p class="card-text"><span class="fw-bold">Czas pobytu:</span> {{ reservation.startDate }} - {{ reservation.endDate }}</p>
+      <p *ngIf="reservation.comment != null" class="card-text"><span class="fw-bold">Komentarz:</span> {{ reservation.comment }}</p>
+    </div>
+    <div *ngIf="reservation.comment == null" class="d-flex align-items-end m-2">
+      <a routerLink="/reservation/{{ reservation.reservationId }}" class="btn btn-sm btn-primary">Dodaj komentarz</a>
     </div>
 </div>

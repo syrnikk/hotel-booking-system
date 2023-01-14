@@ -5,6 +5,7 @@ import com.syrnik.hotelbookingapi.dao.UserDao;
 import com.syrnik.hotelbookingapi.dto.BookingRequest;
 import com.syrnik.hotelbookingapi.dto.ReservationDetailsDto;
 import com.syrnik.hotelbookingapi.dto.ResponseMessage;
+import com.syrnik.hotelbookingapi.model.Booking;
 import com.syrnik.hotelbookingapi.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,17 @@ public class BookingController {
             }
             List<ReservationDetailsDto> reservations = bookingDao.getReservations(user.getId());
             return ResponseEntity.ok(reservations);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/booking/{id}")
+    public ResponseEntity<ResponseMessage> addComment(@PathVariable Long id, @RequestBody Booking booking) {
+        try {
+            bookingDao.addComment(id, booking);
+            return ResponseEntity.ok(new ResponseMessage("Comment added successfully"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

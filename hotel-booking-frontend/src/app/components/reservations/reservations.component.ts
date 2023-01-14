@@ -13,6 +13,7 @@ export class ReservationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.hotelService.getReservations().subscribe(data => {
+      console.log(data)
       this.reservations = data;
     })
   }

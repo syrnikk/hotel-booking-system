@@ -19,6 +19,7 @@ import { AdminRoomTypeComponent } from './components/admin/room-type/admin-room-
 import { AdminAddRoomTypeComponent } from './components/admin/room-type/admin-add-room-type/admin-add-room-type.component';
 import { AdminRoomComponent } from './components/admin/room/admin-room/admin-room.component';
 import { AdminAddRoomComponent } from './components/admin/room/admin-add-room/admin-add-room.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'hotel', component: HotelComponent, canActivate: [AuthGuard] },
   { path: 'hotel/:id', component: RoomBookingComponent, canActivate: [AuthGuard] },
   { path: 'reservation', component: ReservationsComponent, canActivate: [AuthGuard] },
+  { path: 'reservation/:id', component: AddCommentComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminMainComponent, canActivate: [AuthGuard], children: [
     { path: '',   redirectTo: 'country', pathMatch: 'full' },    
     { path: 'country', component: AdminCountryComponent, canActivate: [AuthGuard] },

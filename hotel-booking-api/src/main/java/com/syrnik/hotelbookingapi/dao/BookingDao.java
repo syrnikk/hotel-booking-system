@@ -1,15 +1,14 @@
 package com.syrnik.hotelbookingapi.dao;
 
 import com.syrnik.hotelbookingapi.constants.BookingSQL;
-import com.syrnik.hotelbookingapi.constants.UserSQL;
 import com.syrnik.hotelbookingapi.dto.BookingRequest;
 import com.syrnik.hotelbookingapi.dto.ReservationDetailsDto;
+import com.syrnik.hotelbookingapi.model.Booking;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,11 +67,21 @@ public class BookingDao {
                             .startDate(resultSet.getDate(5).toLocalDate())
                             .endDate(resultSet.getDate(6).toLocalDate())
                             .roomAmount(resultSet.getInt(7))
+                            .comment(resultSet.getString(8))
                             .build();
                     reservationDetailsDtoList.add(reservationDetailsDto);
                 }
             }
         }
         return reservationDetailsDtoList;
+    }
+
+    public void addComment(Long id, Booking booking) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(BookingSQL.ADD_COMMENT_SQL)) {
+            preparedStatement.setString(1, booking.getComment());
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
+        }
     }
 }

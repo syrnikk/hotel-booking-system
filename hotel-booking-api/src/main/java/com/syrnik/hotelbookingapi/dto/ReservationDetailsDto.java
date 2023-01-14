@@ -20,4 +20,5 @@ public class ReservationDetailsDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer roomAmount;
+    private String comment;
 }

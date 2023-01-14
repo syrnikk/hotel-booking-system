@@ -29,6 +29,7 @@ import { AdminRoomTypeComponent } from './components/admin/room-type/admin-room-
 import { AdminAddRoomTypeComponent } from './components/admin/room-type/admin-add-room-type/admin-add-room-type.component';
 import { AdminRoomComponent } from './components/admin/room/admin-room/admin-room.component';
 import { AdminAddRoomComponent } from './components/admin/room/admin-add-room/admin-add-room.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { AdminAddRoomComponent } from './components/admin/room/admin-add-room/ad
     AdminRoomTypeComponent,
     AdminAddRoomTypeComponent,
     AdminRoomComponent,
-    AdminAddRoomComponent
+    AdminAddRoomComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule,

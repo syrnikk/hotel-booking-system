@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Dodaj komentarz</h1>
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-floating m-1">
+            <textarea style="height: 150px" name="comment" formControlName="comment" placeholder="komentarz" class="form-control" required></textarea>        
+            <label>komentarz</label>
+        </div>
+        <br>
+        <div class="form-group">
+            <button class="btn btn-primary">
+                Zapisz
+            </button>
+            <a routerLink="/reservation" class="btn btn-link">Cofnij</a>
+        </div>
+        <div class="form-group m-2">
+            <div *ngIf="showValidationError" class="alert alert-danger" role="alert">
+            Failed!
+            </div>
+        </div>
+    </form>
+</div>
