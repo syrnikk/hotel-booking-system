@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginRequest } from '../model/login-request.model';
 import { RegisterRequest } from '../model/register-request.model';
 import { Observable, Subject } from 'rxjs';
+import jwtDecode from 'jwt-decode';
 
 
 @Injectable({
@@ -43,8 +44,15 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
-    return authToken !== null ? true : false;
+    const accessToken = localStorage.getItem('access_token');
+    if(accessToken == null) {
+      return false;
+    } else {
+      const decodedToken: any = jwtDecode(accessToken);
+      const exp = decodedToken.exp * 1000;
+      const now = Date.now();
+      return exp > now;
+    }
   }
 
   get user(): any {
