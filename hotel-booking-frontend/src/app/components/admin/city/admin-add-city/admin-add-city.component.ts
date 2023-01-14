@@ -23,6 +23,12 @@ export class AdminAddCityComponent implements OnInit {
 
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+  }
+
+  ngOnInit() {
+    this.getCountries().subscribe(data => {
+      this.countries = data;
+    })
 
     if (!this.isAddMode) {
       this.findCityById(this.id).subscribe(city => {
@@ -32,13 +38,7 @@ export class AdminAddCityComponent implements OnInit {
         }
         this.form.patchValue(data)
       });
-  }
-  }
-
-  ngOnInit() {
-    this.getCountries().subscribe(data => {
-      this.countries = data;
-    })
+    }
   }
 
   onSubmit() {
@@ -59,7 +59,7 @@ export class AdminAddCityComponent implements OnInit {
         id: +this.form.value.country
       }
     }
-    console.log(city)
+
     if(this.isAddMode) {
       this.addCity(city).subscribe(observer);
     } else {

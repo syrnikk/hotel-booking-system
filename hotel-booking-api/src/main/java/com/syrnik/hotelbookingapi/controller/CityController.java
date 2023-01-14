@@ -71,7 +71,7 @@ public class CityController {
     }
 
     @GetMapping("/city/{id}")
-    public ResponseEntity<City> finCityById(@PathVariable Long id) {
+    public ResponseEntity<City> findCityById(@PathVariable Long id) {
         try {
             City city = cityDao.findById(id);
             if(city == null) {

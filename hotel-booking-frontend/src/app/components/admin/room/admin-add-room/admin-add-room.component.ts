@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-add-room',
@@ -10,18 +10,22 @@ import { Router } from '@angular/router';
 })
 export class AdminAddRoomComponent implements OnInit {
   isAddMode = true;
+  id: any;
   form: FormGroup;
   showValidationError: boolean = false;
   hotels: any[] = [];
   roomTypes: any[] = [];
 
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute) {
     this.form = this.fb.group({
       roomType: [null, Validators.required],
       hotel: [null, Validators.required],
       number: [null, Validators.required],
       floor: [null]
     });
+
+    this.id = this.route.snapshot.params['id'];
+    this.isAddMode = !this.id;
   }
 
   ngOnInit() {
@@ -31,6 +35,18 @@ export class AdminAddRoomComponent implements OnInit {
     this.getRoomTypes().subscribe(data => {
       this.roomTypes = data;
     })
+
+    if (!this.isAddMode) {
+      this.findRoomById(this.id).subscribe(room => {
+        const data = {
+          roomType: room.roomType.id,
+          hotel: room.hotel.id,
+          number: room.roomNumber,
+          floor: room.floor
+        }
+        this.form.patchValue(data)
+      });
+    }
   }
 
   onSubmit() {
@@ -58,8 +74,12 @@ export class AdminAddRoomComponent implements OnInit {
       floor: data.floor
     }
 
-    this.addRoom(room).subscribe(observer);
+    if(this.isAddMode) {
+      this.addRoom(room).subscribe(observer);
+    } else {
+      this.editRoom(room).subscribe(observer)
     }
+  }
 
   getHotels() {
     return this.http.get<any>('/api/hotel');
@@ -71,5 +91,13 @@ export class AdminAddRoomComponent implements OnInit {
 
   addRoom(room: any) {
     return this.http.post<any>('/api/room', room);
+  }
+
+  editRoom(room: any) {
+    return this.http.put<any>(`/api/room/${this.id}`, room);
+  }
+
+  findRoomById(id: number) {
+    return this.http.get<any>(`/api/room/${id}`);
   }
 }

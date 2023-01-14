@@ -69,4 +69,29 @@ public class RoomController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/room/{id}")
+    public ResponseEntity<Room> findRoomById(@PathVariable Long id) {
+        try {
+            Room room = roomDao.findById(id);
+            if(room == null) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+            return ResponseEntity.ok(room);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/room/{id}")
+    public ResponseEntity<ResponseMessage> updateRoomById(@PathVariable Long id, @RequestBody Room room) {
+        try {
+            roomDao.updateById(id, room);
+            return ResponseEntity.ok(new ResponseMessage("Room updated successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

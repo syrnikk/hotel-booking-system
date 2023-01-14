@@ -76,7 +76,6 @@ public class CityDao {
         }
     }
 
-
     public City findById(Long id) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CitySQL.SELECT_CITY_BY_ID_SQL)) {

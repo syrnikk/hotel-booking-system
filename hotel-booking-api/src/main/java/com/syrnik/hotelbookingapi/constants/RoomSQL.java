@@ -18,4 +18,10 @@ public class RoomSQL {
 
     public static final String DELETE_ROOM_BY_ID_SQL =
             "DELETE FROM pokoj WHERE id = ?";
+
+    public static final String SELECT_ROOM_BY_ID_SQL =
+            "SELECT * FROM pokoj_view WHERE id = ?";
+
+    public static final String UPDATE_ROOM_SQL =
+            "UPDATE pokoj SET typ_pokoju_id = ?, hotel_id = ?, numer_pokoju = ?, pietro = ? WHERE id = ?";
 }

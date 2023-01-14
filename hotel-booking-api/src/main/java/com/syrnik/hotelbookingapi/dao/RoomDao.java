@@ -104,4 +104,44 @@ public class RoomDao {
             preparedStatement.executeUpdate();
         }
     }
+
+    public Room findById(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomSQL.SELECT_ROOM_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+            try( ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    RoomType roomType = RoomType.builder()
+                            .id(resultSet.getLong(6))
+                            .type(resultSet.getString(7))
+                            .build();
+                    Hotel hotel = Hotel.builder()
+                            .id(resultSet.getLong(4))
+                            .name(resultSet.getString(5))
+                            .build();
+                    Room room = Room.builder()
+                            .id(resultSet.getLong(1))
+                            .roomNumber(resultSet.getString(2))
+                            .floor(resultSet.getInt(3))
+                            .roomType(roomType)
+                            .hotel(hotel)
+                            .build();
+                    return room;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void updateById(Long id, Room room) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(RoomSQL.UPDATE_ROOM_SQL)) {
+            preparedStatement.setLong(1, room.getRoomType().getId());
+            preparedStatement.setLong(2, room.getHotel().getId());
+            preparedStatement.setString(3, room.getRoomNumber());
+            preparedStatement.setInt(4, room.getFloor());
+            preparedStatement.setLong(5, id);
+            preparedStatement.executeUpdate();
+        }
+    }
 }

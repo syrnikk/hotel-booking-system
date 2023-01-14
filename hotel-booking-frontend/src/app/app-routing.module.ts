@@ -42,7 +42,8 @@ const routes: Routes = [
     { path: 'add-room-type', component: AdminAddRoomTypeComponent, canActivate: [AuthGuard] },
     { path: 'edit-room-type/:id', component: AdminAddRoomTypeComponent, canActivate: [AuthGuard] },
     { path: 'room', component: AdminRoomComponent, canActivate: [AuthGuard] },
-    { path: 'add-room', component: AdminAddRoomComponent, canActivate: [AuthGuard] }
+    { path: 'add-room', component: AdminAddRoomComponent, canActivate: [AuthGuard] },
+    { path: 'edit-room/:id', component: AdminAddRoomComponent, canActivate: [AuthGuard] }
   ] }
 ];
 
