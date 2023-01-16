@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/hotel_db
-    username: hotel_user
-    password: hoteluserpassword
+    url: jdbc:postgresql://otto.db.elephantsql.com/ukgouajq
+    username: ukgouajq
+    password: GH1YI7-jzkTOaATG1T9OTzxIvSUNR9WW
 
 rsa:
   public-key: classpath:certs/public.pem
