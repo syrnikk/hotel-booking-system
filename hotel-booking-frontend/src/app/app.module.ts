@@ -30,6 +30,7 @@ import { AdminAddRoomTypeComponent } from './components/admin/room-type/admin-ad
 import { AdminRoomComponent } from './components/admin/room/admin-room/admin-room.component';
 import { AdminAddRoomComponent } from './components/admin/room/admin-add-room/admin-add-room.component';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { RateHotelComponent } from './components/rate-hotel/rate-hotel.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
     AdminAddRoomTypeComponent,
     AdminRoomComponent,
     AdminAddRoomComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    RateHotelComponent
   ],
   imports: [
     BrowserModule,

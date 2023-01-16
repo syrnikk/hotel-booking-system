@@ -7,6 +7,12 @@
       <p class="card-text">{{ hotel.address.city.name }} &nbsp; {{ hotel.address.street }} {{ hotel.address.number }} &nbsp; {{ hotel.address.postalCode }}</p>
       <p class="card-text">{{ hotel.description }}</p>
       <p class="card-text">Telefon: {{ hotel.phone }}</p>
-      <a class="btn btn-primary" routerLink="/hotel/{{hotel.id}}">Zarezerwuj pokoje</a>
+      <div class="d-flex justify-content-between">
+        <div class="d-flex">
+          <a class="btn btn-primary m-1" routerLink="/hotel/{{hotel.id}}">Zarezerwuj pokoje</a>
+          <a class="btn btn-warning m-1" routerLink="/rate/{{hotel.id}}">Ocen hotel</a>
+        </div>
+        <p *ngIf="rate != null" class="card-text m-1">Twoja ocena: {{ rate.rate }}</p>
+      </div>
     </div>
 </div>

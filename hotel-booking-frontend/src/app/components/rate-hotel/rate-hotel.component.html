@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Dodaj ocene</h1>
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-floating m-1">
+            <select class="form-select" id="rate" style="min-width: 255px;" formControlName="rate" required>
+                <option *ngFor="let rate of rates">{{ rate }}</option>
+            </select>
+            <label>ocena</label>
+        </div>
+        <br>
+        <div class="form-group">
+            <button class="btn btn-primary">
+                Oceń
+            </button>
+            <a routerLink="/hotel" class="btn btn-link">Cofnij</a>
+        </div>
+        <div class="form-group m-2">
+            <div *ngIf="showValidationError" class="alert alert-danger" role="alert">
+            Failed!
+            </div>
+        </div>
+    </form>
+</div>

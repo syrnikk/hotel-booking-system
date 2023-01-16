@@ -1,14 +1,19 @@
 package com.syrnik.hotelbookingapi.controller;
 
 import com.syrnik.hotelbookingapi.dao.HotelDao;
+import com.syrnik.hotelbookingapi.dao.UserDao;
 import com.syrnik.hotelbookingapi.dto.CityDto;
 import com.syrnik.hotelbookingapi.dto.ResponseMessage;
 import com.syrnik.hotelbookingapi.model.City;
 import com.syrnik.hotelbookingapi.model.Hotel;
+import com.syrnik.hotelbookingapi.model.Rate;
+import com.syrnik.hotelbookingapi.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

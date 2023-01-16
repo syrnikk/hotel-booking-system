@@ -2,11 +2,9 @@ package com.syrnik.hotelbookingapi.dao;
 
 import com.syrnik.hotelbookingapi.constants.CitySQL;
 import com.syrnik.hotelbookingapi.constants.HotelSQL;
+import com.syrnik.hotelbookingapi.constants.RateSQL;
 import com.syrnik.hotelbookingapi.dto.CityDto;
-import com.syrnik.hotelbookingapi.model.Address;
-import com.syrnik.hotelbookingapi.model.City;
-import com.syrnik.hotelbookingapi.model.Country;
-import com.syrnik.hotelbookingapi.model.Hotel;
+import com.syrnik.hotelbookingapi.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

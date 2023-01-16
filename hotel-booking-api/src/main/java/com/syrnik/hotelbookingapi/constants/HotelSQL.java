@@ -15,6 +15,7 @@ public class HotelSQL {
 
     public static final String DELETE_HOTEL_BY_ID_SQL =
             "DELETE FROM hotel WHERE id = ?";
+
     public static final String UPDATE_HOTEL_SQL =
             "UPDATE hotel SET nazwa = ?, adres_id = ?, telefon = ?, tytul = ?, opis = ?, gwiazdki = ? WHERE id = ?";
 }
