@@ -1,18 +1,18 @@
 <div class="container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal">Logowanie</h1>
         <div class="form-floating m-1">
             <input type="email" class="form-control" placeholder="Enter email" formControlName="email" required>
-            <label for="floatingInput">Email address</label>
+            <label for="floatingInput">Email</label>
         </div>
         <div class="form-floating m-1">
             <input type="password" class="form-control" placeholder="Password" formControlName="password" required>
-            <label for="floatingPassword">Password</label>
+            <label for="floatingPassword">Hasło</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Zaloguj</button>
         <div class="form-group m-2">
             <div *ngIf="showValidationError" class="alert alert-danger" role="alert">
-              Login failed!
+              Logowanie nie powiodło się!
             </div>
           </div>
     </form>

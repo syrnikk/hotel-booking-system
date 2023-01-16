@@ -1,31 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Hotel Booking System</a>
+      <a class="navbar-brand" href="#">System zarządzania hotelami</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Strona startowa</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/hotel" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Hotels</a>
+            <a class="nav-link" routerLink="/hotel" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Hotele</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
-            <a class="nav-link" routerLink="/reservation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Reservations</a>
+            <a class="nav-link" routerLink="/reservation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Rezerwacje</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn && isAdmin()">
-            <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin panel</a>
+            <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
           </li>
         </ul>
         <div class="d-flex" *ngIf="!isLoggedIn">
-          <a class="btn btn-secondary my-2 my-sm-0 m-2" routerLink="/login">Sign In</a>
-          <a class="btn btn-primary my-2 my-sm-0" routerLink="/register">Sign Up</a>
+          <a class="btn btn-secondary my-2 my-sm-0 m-2" routerLink="/login">Zaloguj</a>
+          <a class="btn btn-primary my-2 my-sm-0" routerLink="/register">Zarejestruj</a>
         </div>
         <div class="d-flex" *ngIf="isLoggedIn">
           <div class="m-2 text-white">{{ user.email }}</div>
-          <button class="btn btn-primary my-2 my-sm-0" (click)="logout()">Log out</button>
+          <button class="btn btn-primary my-2 my-sm-0" (click)="logout()">Wyloguj</button>
         </div>
       </div>
     </div>
