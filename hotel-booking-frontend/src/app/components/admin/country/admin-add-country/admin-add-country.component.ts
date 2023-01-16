@@ -24,7 +24,7 @@ export class AdminAddCountryComponent {
 
     if (!this.isAddMode) {
       this.findCountryById(this.id).subscribe(country => this.form.patchValue(country));
-  }
+    }
   }
 
   onSubmit() {
